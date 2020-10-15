@@ -20,11 +20,7 @@ import MenuBuilder from './menu';
 process.env.PLAYWRIGHT_BROWSERS_PATH = '0';
 
 export default class AppUpdater {
-  version = app.getVersion();
-
-  platform = `${os.platform()}_${os.arch()}`;
-
-  updaterFeedURL = `https://ig-puppet.herokuapp.com/update/${this.platform}/${this.version}`;
+  updaterFeedURL = `https://ig-puppet.herokuapp.com/download/${os.platform()}`;
 
   constructor() {
     log.transports.file.level = 'info';
