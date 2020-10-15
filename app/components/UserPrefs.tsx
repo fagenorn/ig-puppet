@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Subscription } from 'rxjs';
-import launch from 'launchpad';
 import { AtomicUpdateFunction } from 'rxdb';
 import UserPrefsOption from '../types/user-prefs';
 import IgDatabase from '../utils/database';
@@ -8,33 +7,11 @@ import IgDatabase from '../utils/database';
 export default function UserPrefs(): [
   UserPrefsOption,
   boolean,
-  (fun: AtomicUpdateFunction<UserPrefsOption>) => void,
-  () => Promise<void>
+  (fun: AtomicUpdateFunction<UserPrefsOption>) => void
 ] {
   const isMounted = useRef(true);
   const [userprefs, setUserPrefs] = useState({} as UserPrefsOption);
   const [loading, setisLoading] = useState(true);
-  const getFirefoxInstallPath = () =>
-    new Promise<string>((resolve) => {
-      launch.local((_err, local) => {
-        local.browsers((__err, browsers) => {
-          if (!browsers) {
-            resolve('');
-            return;
-          }
-
-          for (let index = 0; index < browsers.length; index += 1) {
-            const browser = browsers[index];
-            if (browser.name === 'firefox') {
-              resolve(browser.binPath);
-              return;
-            }
-          }
-
-          resolve('');
-        });
-      });
-    });
   const updateUserPrefs = (fun: AtomicUpdateFunction<UserPrefsOption>) => {
     IgDatabase.database.userprefs
       .findOne()
@@ -42,17 +19,6 @@ export default function UserPrefs(): [
       .then((result) => result?.atomicUpdate(fun))
       .catch(() => null);
   };
-  const autoDetectBrowserPath = useCallback(async () => {
-    if (!isMounted.current) return;
-    setisLoading(true);
-    const path = await getFirefoxInstallPath();
-    if (path)
-      updateUserPrefs((prefs) => {
-        prefs.browserPath = path;
-        return prefs;
-      });
-    setisLoading(false);
-  }, []);
   const [sub, setSub] = useState({} as Subscription);
 
   useEffect(() => {
@@ -66,6 +32,7 @@ export default function UserPrefs(): [
           prefs.$.subscribe((curr) => {
             if (!isMounted.current) return;
             setUserPrefs(curr);
+            setisLoading(false);
           })
         );
         return prefs;
@@ -74,26 +41,9 @@ export default function UserPrefs(): [
 
     return () => {
       if (sub.unsubscribe) sub.unsubscribe();
+      isMounted.current = false;
     };
   }, [sub]);
 
-  useEffect(() => {
-    IgDatabase.database.userprefs
-      .findOne()
-      .exec()
-      .then(async (result) => {
-        if (!isMounted.current) return result;
-        if (!result) throw new Error('Userprefs not found');
-        if (!result.browserPath) await autoDetectBrowserPath();
-        setisLoading(false);
-        return result;
-      })
-      .catch(() => null);
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, [autoDetectBrowserPath]);
-
-  return [userprefs, loading, updateUserPrefs, autoDetectBrowserPath];
+  return [userprefs, loading, updateUserPrefs];
 }

@@ -22,7 +22,7 @@ export default function Sidebar(): JSX.Element {
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
-      <a href="index3.html" className="brand-link">
+      <a href="#!" className="brand-link">
         <img
           src={logoImg}
           alt="AdminLTE Logo"

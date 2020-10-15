@@ -41,7 +41,6 @@ export default {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
-      // PLAYWRIGHT_BROWSERS_PATH: '0',
     }),
 
     new webpack.NamedModulesPlugin(),

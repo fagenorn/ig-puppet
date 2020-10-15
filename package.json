@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "1.3.1",
+  "name": "ig-puppet",
+  "productName": "IG Puppet",
+  "version": "1.0.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -52,8 +52,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "IG Puppet",
+    "appId": "com.betroix.IgPuppet",
     "files": [
       "dist/",
       "node_modules/",
@@ -99,40 +99,23 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate",
-      "private": false
+      "owner": "fagenorn",
+      "repo": "ig-puppet",
+      "private": true
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/fagenorn/ig-puppet.git"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Betroix",
+    "email": "support@betroix.com",
+    "url": "https://betroix.com"
   },
-  "contributors": [
-    {
-      "name": "Vikram Rangaraj",
-      "email": "vikr01@icloud.com",
-      "url": "https://github.com/vikr01"
-    },
-    {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
-    },
-    {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
-    }
-  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/fagenorn/ig-puppet/issues"
   },
   "keywords": [
     "electron",
@@ -146,7 +129,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/fagenorn/ig-puppet#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
