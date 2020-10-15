@@ -1,0 +1,12 @@
+{
+  "HOME": "/home",
+  "COUNTER": "/counter",
+  "ACCOUNTS": {
+    "BASE": "/accounts",
+    "ADD_NEW": "/accounts/add"
+  },
+  "ACTIONS": {
+    "BASE": "/action",
+    "FOLLOW_FOLLOWERS": "/action/follow_followers"
+  }
+}
