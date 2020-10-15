@@ -14,18 +14,14 @@ import path from 'path';
 import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import os from 'os';
 import MenuBuilder from './menu';
 
 process.env.PLAYWRIGHT_BROWSERS_PATH = '0';
 
 export default class AppUpdater {
-  updaterFeedURL = `https://ig-puppet.herokuapp.com/download/${os.platform()}`;
-
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    autoUpdater.setFeedURL(this.updaterFeedURL);
     autoUpdater.checkForUpdatesAndNotify();
   }
 }
@@ -141,5 +137,3 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
-
-//
