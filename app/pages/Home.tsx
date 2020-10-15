@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
       <Container fluid="md">
         <Jumbotron fluid>
           <Container>
-            <h1>Welcome</h1>
+            <h1>Hello</h1>
             <p>
               Get started by adding an
               <Link to={routes.ACCOUNTS.BASE}> account </Link>
