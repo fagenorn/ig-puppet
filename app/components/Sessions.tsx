@@ -34,7 +34,7 @@ export default function Sessions(): [
     subs.push(currentSub);
 
     return () => subs.forEach((sub) => sub.unsubscribe());
-  }, [subs]);
+  }, []);
 
   return [sessions, loading];
 }

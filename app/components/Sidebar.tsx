@@ -95,6 +95,16 @@ export default function Sidebar(): JSX.Element {
                     <p>Follow Followers</p>
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink
+                    to={routes.ACTIONS.LIKE_TAGS}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <FontAwesomeIcon className="nav-icon" icon="th" />
+                    <p>Like Tags</p>
+                  </NavLink>
+                </li>
               </ul>
             </li>
           </ul>

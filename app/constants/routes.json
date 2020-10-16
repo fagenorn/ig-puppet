@@ -7,6 +7,7 @@
   },
   "ACTIONS": {
     "BASE": "/action",
-    "FOLLOW_FOLLOWERS": "/action/follow_followers"
+    "FOLLOW_FOLLOWERS": "/action/follow_followers",
+    "LIKE_TAGS": "/action/like_tags"
   }
 }

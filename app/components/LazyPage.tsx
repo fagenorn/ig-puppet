@@ -38,4 +38,16 @@ export default class LazyPage {
       </React.Suspense>
     );
   };
+
+  static LikeTags = (props: Record<string, never>) => {
+    const Page = React.lazy(() =>
+      import(/* webpackChunkName: "Pages" */ '../pages/actions/LikeTags')
+    );
+
+    return (
+      <React.Suspense fallback={Loading()}>
+        <Page {...props} />
+      </React.Suspense>
+    );
+  };
 }

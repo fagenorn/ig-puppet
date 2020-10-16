@@ -2,6 +2,7 @@
 /* eslint-disable no-await-in-loop */
 import delay from 'delay';
 import events from 'events';
+import log from 'electron-log';
 import FollowFollowersOptions from '../../types/follow';
 import User from '../../types/user';
 import delays from '../../constants/delays.json';
@@ -135,12 +136,13 @@ export default class Follow {
           throw new Error('Follow blocked.');
         }
 
+        await followBtn.waitForSelector('"Following"');
         followStatus = await followBtn.textContent();
       }
 
       if (followStatus !== 'Follow') {
         followed += 1;
-        console.info(`Followed ${user.username} successfully. (${followed})`);
+        log.info(`Followed ${user.username} successfully. (${followed})`);
       }
     }
 

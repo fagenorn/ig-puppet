@@ -11,33 +11,26 @@ import {
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { UserFilterOptions } from '../../types/filter';
-import FollowFollowersOptions from '../../types/follow';
-import Sessions from '../../components/Sessions';
+import { PostFilterOptions } from '../../types/filter';
 import CardWidget from '../../components/CardWidget';
-import UserFilter from '../../components/actions/UserFilter';
+import PostFilter from '../../components/actions/PostFilter';
 import PlaywrightService from '../../utils/playwright';
-import IgDatabase from '../../utils/database';
 import SessionDropDown from '../../components/SessionDropDown';
+import LikeHashtagOptions from '../../types/like';
 
-export default function FollowFollowersPage(): JSX.Element {
+export default function LikeTagsPage(): JSX.Element {
   const history = useHistory();
   const [actionOptions, setActionOptions] = useState({
     delay: 0,
     amount: 0,
-    username: '',
-  } as FollowFollowersOptions);
+    tag: '',
+  } as LikeHashtagOptions);
   const [filter, setFilter] = useState({
-    mustHaveWebsite: false,
-    mustNotBePrivate: false,
-    mustHaveName: false,
-    maxFollowers: 9_999_999,
-    minFollowers: 0,
-    maxFollowings: 9_999_999,
-    minFollowings: 0,
-    maxPosts: 9_999_999,
-    minPosts: 0,
-  } as UserFilterOptions);
+    maxLikes: 999_999_999,
+    minLikes: 0,
+    maxAge: new Date(2050, 1),
+    minAge: new Date(1975, 1),
+  } as PostFilterOptions);
   const [session, SessionDropDownElement] = SessionDropDown();
   const [hasError, setHasError] = useState(false);
   const setAmount = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -45,8 +38,8 @@ export default function FollowFollowersPage(): JSX.Element {
       ...actionOptions,
       amount: parseInt(e.target.value, 10),
     });
-  const setUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setActionOptions({ ...actionOptions, username: e.target.value });
+  const setTag = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setActionOptions({ ...actionOptions, tag: e.target.value });
   const setDelay = (e: React.ChangeEvent<HTMLInputElement>) =>
     setActionOptions({ ...actionOptions, delay: parseInt(e.target.value, 10) });
 
@@ -63,7 +56,7 @@ export default function FollowFollowersPage(): JSX.Element {
     session
       .update({ $set: { status: 'active' } })
       .then(() =>
-        PlaywrightService.follow_followers(session, actionOptions).finally(() =>
+        PlaywrightService.like_tag(session, actionOptions).finally(() =>
           session.update({ $set: { status: 'inactive' } })
         )
       )
@@ -79,7 +72,7 @@ export default function FollowFollowersPage(): JSX.Element {
           <Col>
             <Card>
               <Card.Header>
-                <Card.Title>Follow Followers</Card.Title>
+                <Card.Title>Like Tags</Card.Title>
               </Card.Header>
               <Card.Body>
                 {hasError && (
@@ -104,19 +97,19 @@ export default function FollowFollowersPage(): JSX.Element {
                       onChange={setAmount}
                     />
                     <Form.Text className="text-muted">
-                      Number of users to follow.
+                      Number of posts to like.
                     </Form.Text>
                   </Form.Group>
 
                   <Form.Group controlId="fUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Hashtag</Form.Label>
                     <Form.Control
                       type="text"
-                      value={actionOptions.username}
-                      onChange={setUsername}
+                      value={actionOptions.tag}
+                      onChange={setTag}
                     />
                     <Form.Text className="text-muted">
-                      Username of the user you want to scrape from.
+                      Hashtag you want to scrape from.
                     </Form.Text>
                   </Form.Group>
 
@@ -143,8 +136,8 @@ export default function FollowFollowersPage(): JSX.Element {
 
                   <hr />
 
-                  <CardWidget title={<h4>User Filters</h4>} isCollapsed>
-                    <UserFilter filter={filter} setFilter={setFilter} />
+                  <CardWidget title={<h4>Post Filters</h4>} isCollapsed>
+                    <PostFilter filter={filter} setFilter={setFilter} />
                   </CardWidget>
                   <Button
                     variant="success"

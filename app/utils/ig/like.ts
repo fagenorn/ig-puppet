@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-await-in-loop */
 import delay from 'delay';
-import { ElementHandle } from 'playwright';
+import { ElementHandle, Request } from 'playwright-core';
 import log from 'electron-log';
 import LikeHashtagOptions from '../../types/like';
 import Post from '../../types/post';
@@ -37,10 +37,12 @@ export default class Like {
     await page.waitForSelector(selectors.SEARCH_RECENT_FEED_POSTS);
 
     const postInfos = new Map<string, Post>();
-    const postInfoIntercepter = async (listener: any) => {
+    const postInfoIntercepter = async (listener: Request) => {
       const postInfoUrlRegex = /instagram\.com\/graphql\/query\/\?query_hash=.*/;
       if (postInfoUrlRegex.test(listener.url())) {
-        const postBody: any = await (await listener.response()).json();
+        const response = await listener.response();
+        if (!response) return;
+        const postBody: any = await response.json();
         if (!postBody.data.shortcode_media) {
           return;
         }
@@ -68,7 +70,7 @@ export default class Like {
     let liked = 0;
     for (let index = 0; liked < options.amount; index += 1) {
       const elements = await page.$$(selectors.SEARCH_RECENT_FEED_POSTS);
-      let element: ElementHandle<SVGElement | HTMLElement>;
+      let element: ElementHandle<SVGElement | HTMLElement> | undefined;
       for (let j = 0; j < elements.length; j += 1) {
         const current = elements[j];
         const match = (
@@ -87,7 +89,7 @@ export default class Like {
         }
       }
 
-      if (element === undefined) {
+      if (!element) {
         continue;
       }
 
@@ -136,6 +138,7 @@ export default class Like {
         throw new Error('Like blocked.');
       }
 
+      await page.waitForSelector('svg[aria-label="Unlike"]');
       likeStatus = await page.$eval(selectors.SEARCH_LIKE_POST_STATUS, (el) =>
         el.getAttribute('aria-label')
       );
@@ -143,7 +146,7 @@ export default class Like {
       if (likeStatus !== 'Like') {
         liked += 1;
         log.info(
-          `Liked https://www.instagram.com/p/${shortcode}/ successfully. ${liked}`
+          `Liked https://www.instagram.com/p/${shortcode}/ successfully. (${liked})`
         );
       }
 

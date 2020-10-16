@@ -1,4 +1,4 @@
-import { BrowserContext, Page } from 'playwright';
+import { BrowserContext, Page } from 'playwright-core';
 import GhostMouse from '../utils/mouse-movement';
 
 export default interface BrowsingDetails {
