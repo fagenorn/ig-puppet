@@ -25,6 +25,7 @@ export default function Routes() {
           component={LazyPage.FollowFollowers}
         />
         <Route path={routes.ACTIONS.LIKE_TAGS} component={LazyPage.LikeTags} />
+        <Route path={routes.ACTIONS.DIRECT} component={LazyPage.Direct} />
       </Switch>
     </App>
   );

@@ -27,7 +27,6 @@ const Root = ({ store, history }: Props) => (
       <div className="wrapper">
         <Header />
         <Sidebar />
-
         <div className="content-wrapper">
           <div className="content-header">
             <div className="container-fluid">
@@ -46,7 +45,6 @@ const Root = ({ store, history }: Props) => (
               </div>
             </div>
           </div>
-
           <Routes />
         </div>
         <Footer />

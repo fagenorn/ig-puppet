@@ -6,7 +6,6 @@ import userImg from '../assets/user2-160x160.jpg';
 import logoImg from '../assets/AdminLTELogo.png';
 
 // AdminLTE
-import { initLayout } from '../utils/layout';
 import { initTreeview } from '../utils/treeview';
 import { initPushMenu } from '../utils/push-menu';
 
@@ -14,7 +13,6 @@ import routes from '../constants/routes.json';
 
 export default function Sidebar(): JSX.Element {
   React.useEffect(() => {
-    initLayout();
     initTreeview();
     initPushMenu();
   }, []);
@@ -31,7 +29,6 @@ export default function Sidebar(): JSX.Element {
         />
         <span className="brand-text font-weight-light">IG Puppet</span>
       </a>
-      {/* Sidebar */}
       <div className="sidebar">
         {/* Sidebar user panel (optional) */}
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -48,7 +45,6 @@ export default function Sidebar(): JSX.Element {
             </a>
           </div>
         </div>
-        {/* Sidebar Menu */}
         <nav className="mt-2">
           <ul
             className="nav nav-pills nav-sidebar flex-column"
@@ -105,13 +101,21 @@ export default function Sidebar(): JSX.Element {
                     <p>Like Tags</p>
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink
+                    to={routes.ACTIONS.DIRECT}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <FontAwesomeIcon className="nav-icon" icon="th" />
+                    <p>Direct Message</p>
+                  </NavLink>
+                </li>
               </ul>
             </li>
           </ul>
         </nav>
-        {/* /.sidebar-menu */}
       </div>
-      {/* /.sidebar */}
     </aside>
   );
 }

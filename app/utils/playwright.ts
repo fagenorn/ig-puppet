@@ -30,6 +30,8 @@ export default class PlaywrightService {
     try {
       browse = await this.action(options);
       await follow.followers(browse, action_settings);
+    } catch (err) {
+      log.error(err);
     } finally {
       if (browse) await browse.browser.close();
     }
@@ -43,6 +45,8 @@ export default class PlaywrightService {
     try {
       browse = await this.action(options);
       await like.tags(browse, action_settings);
+    } catch (err) {
+      log.error(err);
     } finally {
       if (browse) await browse.browser.close();
     }
@@ -56,6 +60,8 @@ export default class PlaywrightService {
     try {
       browse = await this.action(options);
       await direct.send(browse, action_settings);
+    } catch (err) {
+      log.error(err);
     } finally {
       if (browse) await browse.browser.close();
     }

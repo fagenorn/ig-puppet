@@ -50,4 +50,16 @@ export default class LazyPage {
       </React.Suspense>
     );
   };
+
+  static Direct = (props: Record<string, never>) => {
+    const Page = React.lazy(() =>
+      import(/* webpackChunkName: "Pages" */ '../pages/actions/Direct')
+    );
+
+    return (
+      <React.Suspense fallback={Loading()}>
+        <Page {...props} />
+      </React.Suspense>
+    );
+  };
 }

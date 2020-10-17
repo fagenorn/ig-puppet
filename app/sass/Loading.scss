@@ -1,22 +1,54 @@
-.loading-circle {
+@import 'adminlte/adminlte';
+
+.loader-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
-  .loader {
-    width: calc(100% - 0px);
-    height: calc(100% - 0px);
-    border: 8px solid #162534;
-    border-top: 8px solid #09f;
-    border-radius: 50%;
-    animation: rotate 5s linear infinite;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loading-circle {
+    width: 100px;
+    height: 100px;
+    .loader {
+      width: calc(100% - 0px);
+      height: calc(100% - 0px);
+      border: 8px solid #162534;
+      border-top: 8px solid #09f;
+      border-radius: 50%;
+      animation: rotate 5s linear infinite;
+    }
   }
 }
 
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+body:not(.sidebar-mini-md) {
+  .loader-container {
+    @include media-breakpoint-up(md) {
+      @include transition(margin-left $transition-speed $transition-fn);
+
+      margin-left: $sidebar-width;
+
+      .sidebar-collapse & {
+        margin-left: 0;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      &,
+      &::before {
+        margin-left: 0;
+      }
+    }
   }
 }

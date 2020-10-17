@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
+import OverlayScrollbars from 'overlayscrollbars';
 import { history, configuredStore } from './store';
 
 const store = configuredStore();
@@ -16,4 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
     </AppContainer>,
     document.getElementById('root')
   );
+
+  OverlayScrollbars(document.body, {
+    nativeScrollbarsOverlaid: {
+      initialize: false,
+    },
+  });
+
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+  OverlayScrollbars(sidebar, {
+    className: 'os-theme-light',
+    nativeScrollbarsOverlaid: {
+      initialize: false,
+    },
+  });
 });

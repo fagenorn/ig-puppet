@@ -1,4 +1,5 @@
 export default interface DirectOptions {
-  message: string;
+  messages: string[];
   users: string[];
+  users_per_message: number;
 }

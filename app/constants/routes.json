@@ -8,6 +8,7 @@
   "ACTIONS": {
     "BASE": "/action",
     "FOLLOW_FOLLOWERS": "/action/follow_followers",
-    "LIKE_TAGS": "/action/like_tags"
+    "LIKE_TAGS": "/action/like_tags",
+    "DIRECT": "/action/direct"
   }
 }
