@@ -23,6 +23,7 @@ export default function DirectPage(): JSX.Element {
     messages: [] as string[],
     users: [] as string[],
     users_per_message: 0,
+    delay: 0,
   } as DirectOptions);
   const [session, SessionDropDownElement] = SessionDropDown();
   const [hasError, setHasError] = useState(false);
@@ -30,6 +31,11 @@ export default function DirectPage(): JSX.Element {
     setActionOptions({
       ...actionOptions,
       users_per_message: parseInt(e.target.value, 10),
+    });
+  const setDelay = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setActionOptions({
+      ...actionOptions,
+      delay: parseInt(e.target.value, 10),
     });
   const setMessages = (strings: string[]) =>
     setActionOptions({
@@ -95,6 +101,27 @@ export default function DirectPage(): JSX.Element {
                     />
                     <Form.Text className="text-muted">
                       Number of users to message per DM.
+                    </Form.Text>
+                  </Form.Group>
+
+                  <Form.Group controlId="fDelay">
+                    <Form.Label>Delay</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        type="number"
+                        step="100"
+                        min="0"
+                        value={actionOptions.delay}
+                        onChange={setDelay}
+                      />
+                      <InputGroup.Append>
+                        <InputGroup.Text id="inputGroup-sizing-default">
+                          Millisec
+                        </InputGroup.Text>
+                      </InputGroup.Append>
+                    </InputGroup>
+                    <Form.Text className="text-muted">
+                      Delay between actions.
                     </Form.Text>
                   </Form.Group>
 
