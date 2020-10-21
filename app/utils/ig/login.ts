@@ -1,4 +1,3 @@
-import { Page } from 'playwright';
 import LoginOptions from '../../types/login';
 import delays from '../../constants/delays.json';
 import popups from './popup';
@@ -37,19 +36,16 @@ export default class Login {
     }
   }
 
-  static async logout(page: Page) {
+  static async logout(browse: BrowsingDetails) {
+    const { page, cursor } = browse;
+
     // Check if logout is possible.
     if ((await page.$(selectors.PROFILE_DROP_DOWN_SHOW)) === null) {
       return;
     }
 
-    await page.click(selectors.PROFILE_DROP_DOWN_SHOW, {
-      delay: delays.MOUSE_CLICK_DELAY,
-    });
-
-    await page.click(selectors.PROFILE_DROPW_DOWN_LOGOUT_SUBMIT, {
-      delay: delays.MOUSE_CLICK_DELAY,
-    });
+    await cursor.click(selectors.PROFILE_DROP_DOWN_SHOW);
+    await cursor.click(selectors.PROFILE_DROPW_DOWN_LOGOUT_SUBMIT);
 
     await page.waitForNavigation({ waitUntil: 'networkidle' });
   }

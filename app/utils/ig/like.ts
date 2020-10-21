@@ -18,11 +18,11 @@ export default class Like {
       options.delay = delays.LIKE_DELAY;
     }
 
-    if ((await page.$(selectors.SEARCH_INPUT_BTN)) === null) {
+    if ((await page.$(selectors.SEARCH_INPUT)) === null) {
       return;
     }
 
-    await cursor.click(selectors.SEARCH_INPUT_BTN);
+    await cursor.click(selectors.SEARCH_INPUT);
     await page.type(selectors.SEARCH_INPUT, `#${options.tag}`, {
       delay: delays.TYPE_DELAY,
     });

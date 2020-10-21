@@ -21,21 +21,16 @@ export default class Follow {
       options.delay = delays.FOLLOW_DELAY;
     }
 
-    if ((await page.$(selectors.SEARCH_INPUT_BTN)) === null) {
+    if ((await page.$(selectors.SEARCH_INPUT)) === null) {
       return;
     }
 
-    await cursor.click(selectors.SEARCH_INPUT_BTN);
+    await cursor.click(selectors.SEARCH_INPUT);
     await page.type(selectors.SEARCH_INPUT, `@${options.username}`, {
       delay: delays.TYPE_DELAY,
     });
 
     await page.waitForSelector(selectors.SEARCH_FIRST_RESULT);
-
-    if ((await page.$(selectors.SEARCH_FIRST_RESULT)) === null) {
-      return;
-    }
-
     await cursor.click(selectors.SEARCH_FIRST_RESULT);
     await page.waitForSelector(selectors.USER_FOLLOWERS);
     await cursor.click(selectors.USER_FOLLOWERS);
