@@ -5,8 +5,12 @@ import { useState } from 'react';
 import CardWidget from '../components/CardWidget';
 import IgDatabase from '../utils/database';
 import SessionOptions, { Proxy } from '../types/session';
+import Sessions from '../components/Sessions';
+
+const { dialog } = require('electron').remote;
 
 export default function AddAccountPage() {
+  const [sessions] = Sessions();
   const [session, setSessionState] = useState({
     username: '',
     password: '',
@@ -47,6 +51,16 @@ export default function AddAccountPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (sessions.length >= 2) {
+      await dialog.showMessageBox({
+        message: "Can't add any more accounts.",
+        title: 'Error',
+      });
+      history.push('/accounts');
+
+      return;
+    }
 
     session.id = await generateId();
     session.status = 'inactive';

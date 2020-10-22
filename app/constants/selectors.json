@@ -5,6 +5,7 @@
   "LOGIN_ERROR": "#slfErrorAlert",
   "PROFILE_DROP_DOWN_SHOW": "nav span[role='link']",
   "PROFILE_DROPW_DOWN_LOGOUT_SUBMIT": "#react-root > section div > div > div:nth-child(3) > div > div:nth-child(5) > div:nth-child(3) > div > div:nth-child(2) > div:nth-child(2) > div",
+  "PROFILE_DROPW_DOWN_PROFILE_SUBMIT": "nav span[role='link'] ~ div a:nth-child(1)",
   "POPUP_TURN_ON_NOTIFICATIONS": "button >> text='Not Now'",
   "POPUP_SAVE_INFO": "button >> text='Not Now'",
   "POPUP_ACCEPT_COOKIES": "button >> text='Accept'",
@@ -30,5 +31,8 @@
   "USER_HOVER_INFO_FOLLOWERS": "body > div:nth-of-type(5) > div > div > div:nth-child(2) > div > div > div:nth-child(2) > span > span",
   "USER_HOVER_INFO_FOLLOWINGS": "body > div:nth-of-type(5) > div > div > div:nth-child(2) > div > div > div:nth-child(3) > span > span",
   "USER_FOLLOW_TRY_AGAIN_LATER": "body > div:nth-of-type(5) > div > div > div > div:nth-child(2) > button:nth-child(1)",
-  "USER_FOLLOW_BLOCK": "body > div:nth-of-type(5) > div > div > div > div:nth-child(2) > button:nth-child(1)"
+  "USER_FOLLOW_BLOCK": "body > div:nth-of-type(5) > div > div > div > div:nth-child(2) > button:nth-child(1)",
+  "USER_FOLLOWINGS": "a >> text=following",
+  "USER_UNFOLLOW_SUBMIT": "div[role='dialog'] button >> text='Unfollow'",
+  "USER_FOLLOWERS_DIALOG_CLOSE": "div[role='dialog'] button svg[aria-label='Close']"
 }

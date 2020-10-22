@@ -12,15 +12,32 @@ import FollowFollowersOptions from '../types/follow';
 import follow from './ig/follow';
 import like from './ig/like';
 import direct from './ig/direct';
+import unfollow from './ig/unfollow';
 import BrowsingDetails from '../types/playwright';
 import GhostMouse from './mouse-movement';
 import LikeHashtagOptions from '../types/like';
 import DirectOptions from '../types/direct';
+import UnfollowFollowersOptions from '../types/unfollow';
 
 export default class PlaywrightService {
   private static readonly HEADLESS: boolean = false;
 
   private static readonly BROWSER: BrowserType<Browser> = firefox;
+
+  public static async unfollow(
+    options: SessionOptions,
+    action_settings: UnfollowFollowersOptions
+  ) {
+    let browse: BrowsingDetails | null = null;
+    try {
+      browse = await this.action(options);
+      await unfollow.unfollow(browse, action_settings);
+    } catch (err) {
+      log.error(err);
+    } finally {
+      if (browse) await browse.browser.close();
+    }
+  }
 
   public static async follow_followers(
     options: SessionOptions,

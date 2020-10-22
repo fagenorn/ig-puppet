@@ -93,6 +93,16 @@ export default function Sidebar(): JSX.Element {
                 </li>
                 <li className="nav-item">
                   <NavLink
+                    to={routes.ACTIONS.UNFOLLOW}
+                    className="nav-link"
+                    activeClassName="active"
+                  >
+                    <FontAwesomeIcon className="nav-icon" icon="th" />
+                    <p>Unfollow</p>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
                     to={routes.ACTIONS.LIKE_TAGS}
                     className="nav-link"
                     activeClassName="active"

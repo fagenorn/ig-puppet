@@ -12,21 +12,19 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { UserFilterOptions } from '../../types/filter';
-import FollowFollowersOptions from '../../types/follow';
-import Sessions from '../../components/Sessions';
+import UnfollowFollowersOptions from '../../types/unfollow';
 import CardWidget from '../../components/CardWidget';
 import UserFilter from '../../components/actions/UserFilter';
 import PlaywrightService from '../../utils/playwright';
-import IgDatabase from '../../utils/database';
 import SessionDropDown from '../../components/SessionDropDown';
 
-export default function FollowFollowersPage(): JSX.Element {
+export default function UnfollowPage(): JSX.Element {
   const history = useHistory();
   const [actionOptions, setActionOptions] = useState({
     delay: 0,
     amount: 0,
-    username: '',
-  } as FollowFollowersOptions);
+    ignoreFollowers: false,
+  } as UnfollowFollowersOptions);
   const [filter, setFilter] = useState({
     mustHaveWebsite: false,
     mustNotBePrivate: false,
@@ -45,10 +43,13 @@ export default function FollowFollowersPage(): JSX.Element {
       ...actionOptions,
       amount: parseInt(e.target.value, 10),
     });
-  const setUsername = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setActionOptions({ ...actionOptions, username: e.target.value });
   const setDelay = (e: React.ChangeEvent<HTMLInputElement>) =>
     setActionOptions({ ...actionOptions, delay: parseInt(e.target.value, 10) });
+  const setIgnoreFollowers = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setActionOptions({
+      ...actionOptions,
+      ignoreFollowers: e.target.checked,
+    });
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -63,7 +64,7 @@ export default function FollowFollowersPage(): JSX.Element {
     session
       .update({ $set: { status: 'active' } })
       .then(() =>
-        PlaywrightService.follow_followers(session, actionOptions).finally(() =>
+        PlaywrightService.unfollow(session, actionOptions).finally(() =>
           session.update({ $set: { status: 'inactive' } })
         )
       )
@@ -79,7 +80,7 @@ export default function FollowFollowersPage(): JSX.Element {
           <Col>
             <Card>
               <Card.Header>
-                <Card.Title>Follow Followers</Card.Title>
+                <Card.Title>Unfollow</Card.Title>
               </Card.Header>
               <Card.Body>
                 {hasError && (
@@ -104,19 +105,7 @@ export default function FollowFollowersPage(): JSX.Element {
                       onChange={setAmount}
                     />
                     <Form.Text className="text-muted">
-                      Number of users to follow.
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group controlId="fUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={actionOptions.username}
-                      onChange={setUsername}
-                    />
-                    <Form.Text className="text-muted">
-                      Username of the user you want to scrape from.
+                      Number of users to unfollow.
                     </Form.Text>
                   </Form.Group>
 
@@ -137,8 +126,17 @@ export default function FollowFollowersPage(): JSX.Element {
                       </InputGroup.Append>
                     </InputGroup>
                     <Form.Text className="text-muted">
-                      Delay between each follow.
+                      Delay between each unfollow.
                     </Form.Text>
+                  </Form.Group>
+
+                  <Form.Group controlId="fIgnoreFollowers">
+                    <Form.Check
+                      type="checkbox"
+                      label="Ignore followers."
+                      checked={actionOptions.ignoreFollowers}
+                      onChange={setIgnoreFollowers}
+                    />
                   </Form.Group>
 
                   <hr />

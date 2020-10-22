@@ -9,6 +9,7 @@
     "BASE": "/action",
     "FOLLOW_FOLLOWERS": "/action/follow_followers",
     "LIKE_TAGS": "/action/like_tags",
-    "DIRECT": "/action/direct"
+    "DIRECT": "/action/direct",
+    "UNFOLLOW": "/action/unfollow"
   }
 }

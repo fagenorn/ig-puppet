@@ -1,8 +1,8 @@
 import { UserFilterOptions } from './filter';
 
-export default interface FollowFollowersOptions {
-  username: string;
+export default interface UnfollowFollowersOptions {
   amount: number;
   delay?: number;
+  ignoreFollowers?: boolean;
   filter?: UserFilterOptions;
 }
