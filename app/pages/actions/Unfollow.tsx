@@ -28,6 +28,7 @@ export default function UnfollowPage(): JSX.Element {
   const [filter, setFilter] = useState({
     mustHaveWebsite: false,
     mustNotBePrivate: false,
+    mustNotBePublic: false,
     mustHaveName: false,
     maxFollowers: 9_999_999,
     minFollowers: 0,

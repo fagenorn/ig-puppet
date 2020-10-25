@@ -20,6 +20,7 @@ export interface UserFilterOptions {
   minPosts?: number;
   mustHaveWebsite?: boolean;
   mustNotBePrivate?: boolean;
+  mustNotBePublic?: boolean;
   mustHaveName?: boolean;
   bioWhitelist?: string[];
   bioBlacklist?: string[];

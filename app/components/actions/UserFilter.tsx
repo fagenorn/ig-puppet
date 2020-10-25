@@ -24,6 +24,16 @@ export default function UserFilter(props: Props) {
         />
       </Form.Group>
 
+      <Form.Group controlId="fFilterPublic">
+        <Form.Check
+          type="checkbox"
+          label="Ignore public users"
+          name="mustNotBePublic"
+          checked={filter.mustNotBePublic}
+          onChange={setFilter}
+        />
+      </Form.Group>
+
       <Form.Group controlId="fFilterWebsite">
         <Form.Check
           type="checkbox"

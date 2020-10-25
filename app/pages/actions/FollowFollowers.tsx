@@ -13,11 +13,9 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { UserFilterOptions } from '../../types/filter';
 import FollowFollowersOptions from '../../types/follow';
-import Sessions from '../../components/Sessions';
 import CardWidget from '../../components/CardWidget';
 import UserFilter from '../../components/actions/UserFilter';
 import PlaywrightService from '../../utils/playwright';
-import IgDatabase from '../../utils/database';
 import SessionDropDown from '../../components/SessionDropDown';
 
 export default function FollowFollowersPage(): JSX.Element {
@@ -30,6 +28,7 @@ export default function FollowFollowersPage(): JSX.Element {
   const [filter, setFilter] = useState({
     mustHaveWebsite: false,
     mustNotBePrivate: false,
+    mustNotBePublic: false,
     mustHaveName: false,
     maxFollowers: 9_999_999,
     minFollowers: 0,

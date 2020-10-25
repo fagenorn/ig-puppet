@@ -53,6 +53,10 @@ export default class UserFilter implements IFilter<User> {
       return true;
     }
 
+    if (this.options.mustNotBePublic && !user.isPrivate) {
+      return true;
+    }
+
     if (this.options.mustHaveName && !user.name) {
       return true;
     }
