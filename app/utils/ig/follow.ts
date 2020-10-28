@@ -131,7 +131,7 @@ export default class Follow {
           throw new Error('Follow blocked.');
         }
 
-        await followBtn.waitForSelector('"Following"');
+        await followBtn.waitForSelector('text=/(Following|Requested)/');
         followStatus = await followBtn.textContent();
       }
 
