@@ -96,7 +96,7 @@ export default class Like {
       await cursor.clickElement(element);
 
       try {
-        await page.waitForSelector(selectors.SEARCH_LIKE_POST_STATUS, {
+        await page.waitForSelector(selectors.SEARCH_LIKE_POST, {
           timeout: 5_000,
         });
       } catch {
@@ -107,9 +107,8 @@ export default class Like {
       }
 
       // Check like status
-      let likeStatus = await page.$eval(
-        selectors.SEARCH_LIKE_POST_STATUS,
-        (el) => el.getAttribute('aria-label')
+      let likeStatus = await page.$eval(selectors.SEARCH_LIKE_POST, (el) =>
+        el.getAttribute('aria-label')
       );
 
       if (likeStatus !== 'Like') {
@@ -139,7 +138,7 @@ export default class Like {
       }
 
       await page.waitForSelector('svg[aria-label="Unlike"]');
-      likeStatus = await page.$eval(selectors.SEARCH_LIKE_POST_STATUS, (el) =>
+      likeStatus = await page.$eval(selectors.SEARCH_LIKE_POST, (el) =>
         el.getAttribute('aria-label')
       );
 
